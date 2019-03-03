@@ -42,3 +42,4 @@ If you try to run it in a 32 bit Windows system, you'll correctly get a 'web2py.
 - in the console I've got many errors like 'ERROR:Rocket.Errors.Thread-2:Tried to send "500 Server Error" to client but received socket error'. They disappear as soon as I've disabled IPv6 and rebooted. There are users that report also to fix similar problems by adding the hostname on the hosts file
 - psycopg2 is placed in a folder by itself, instead than in the root folder
 - in the currently officially binary build (with pyhton 2.7) there are also two binaries: web2py_no_console.exe and web2py_on_gevent.exe. They don't run correctly, and don't seem to be so important for me so I've decided to skip their generation.
+- Macintosh compatibility is needed, but I cannot work on it
