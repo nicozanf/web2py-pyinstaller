@@ -2,7 +2,7 @@
 How to make web2py windows binaries with python 3 and pyinstaller 
 
 *****************************************************************************************************************  
-* Please, help with testing. Write the results directly on https://github.com/nicozanf/web2py-pyinstaller/wiki **  
+* Please, help with testing. Write the results directly on https://github.com/nicozanf/web2py-pyinstaller/wiki   
 *****************************************************************************************************************  
   
 ## Problem: 
@@ -36,9 +36,9 @@ If everything goes fine, you'll obtain the 64 bit binary build zipped as C:\web2
 If you try to run it in a 32 bit Windows system, you'll correctly get a 'web2py.exe not a valid Win32 application' error message.
 
 ## Gothca:
-- in the console I've got many non-stopping errors like 'ERROR:Rocket.Errors.Thread-2:Tried to send "500 Server Error" to client but received socket error'. They disappear as soon as I've disabled IPv6 and rebooted. There are users that report also to fix similar problems by adding the hostname on the hosts file
+- in the console sometimes I've got many non-stopping errors like 'ERROR:Rocket.Errors.Thread-2:Tried to send "500 Server Error" to client but received socket error'. They disappear as soon as I've disabled IPv6 and rebooted. There are users that report also to fix similar problems by adding the hostname on the hosts file
 - psycopg2 is placed in a folder by itself, instead than in the root folder
 - in the currently officially binary build (with pyhton 2.7) there are also two binaries: web2py_no_console.exe and web2py_on_gevent.exe. They don't run correctly, and don't seem to be so important for me so I've decided to skip their generation
-- at least on Windows 7, you can get an error stating that "api-ms-win-crt-runtime-l1-1-0.dll is missing". You can resolve it by installing Visual C++ Redistributable for Visual Studio 2015 from Microsoft directly https://www.microsoft.com/en-in/download/details.aspx?id=48145
+- at least on Windows 7, you can get an error stating that "api-ms-win-crt-runtime-l1-1-0.dll is missing". You can resolve it by installing Visual C++ Redistributable for Visual Studio described in point 7
 - I've tried to install python-ldap instead than ldap3, but I was not able. With "pip install python-ldap" it keeps writing  errors like "error: Microsoft Visual C++ 14.0 is required." but I cannot resolve it whatever I install from Microsoft.
 - Macintosh compatibility is needed, I'm trying to do it in a VM but please help if you can.
