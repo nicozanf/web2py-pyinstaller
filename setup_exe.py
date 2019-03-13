@@ -1,7 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#Adapted from http://bazaar.launchpad.net/~flavour/sahana-eden/trunk/view/head:/static/scripts/tools/standalone_exe.py
+# Adapted from http://bazaar.launchpad.net/~flavour/sahana-eden/trunk/view/head:/static/scripts/tools/standalone_exe.py
+from distutils.core import setup
+from gluon.import_all import base_modules, contributed_modules
+from gluon.fileutils import readlines_file
+from glob import glob
+import os
+import shutil
+import sys
+import re
+import zipfile
+
 
 USAGE = """
 Usage:
@@ -17,30 +27,22 @@ Usage:
         run python setup_exe.py pyinstaller
 """
 
-from distutils.core import setup
-from gluon.import_all import base_modules, contributed_modules
-from gluon.fileutils import readlines_file
-from glob import glob
-import fnmatch
-import os
-import shutil
-import sys
-import re
-import zipfile
-
 if len(sys.argv) != 2 or not os.path.isfile('web2py.py'):
     print(USAGE)
     sys.exit(1)
 BUILD_MODE = sys.argv[1]
-if not BUILD_MODE in ('py2exe', 'bbfreeze', 'pyinstaller'):
+if BUILD_MODE not in ('py2exe', 'bbfreeze', 'pyinstaller'):
     print(USAGE)
     sys.exit(1)
+
 
 def unzip(source_filename, dest_dir):
     with zipfile.ZipFile(source_filename) as zf:
         zf.extractall(dest_dir)
 
-#borrowed from http://bytes.com/topic/python/answers/851018-how-zip-directory-python-using-zipfile
+# borrowed from http://bytes.com/topic/python/answers/851018-how-zip-directory-python-using-zipfile
+
+
 def recursive_zip(zipf, directory, folder=""):
     for item in os.listdir(directory):
         if os.path.isfile(os.path.join(directory, item)):
@@ -50,17 +52,17 @@ def recursive_zip(zipf, directory, folder=""):
                 zipf, os.path.join(directory, item), folder + os.sep + item)
 
 
-#read web2py version from VERSION file
+# read web2py version from VERSION file
 web2py_version_line = readlines_file('VERSION')[0]
-#use regular expression to get just the version number
+# use regular expression to get just the version number
 v_re = re.compile('[0-9]+\.[0-9]+\.[0-9]+')
 web2py_version = v_re.search(web2py_version_line).group(0)
 
-#pull in preferences from config file
+# pull in preferences from config file
 try:
-	import configparser as ConfigParser
+    import configparser as ConfigParser
 except ImportError:
-	import ConfigParser
+    import ConfigParser
 Config = ConfigParser.ConfigParser()
 Config.read('setup_exe.conf')
 remove_msft_dlls = Config.getboolean("Setup", "remove_microsoft_dlls")
@@ -76,17 +78,16 @@ include_gevent = Config.getboolean("Setup", "include_gevent")
 python_version = sys.version_info[:3]
 
 
-
 if BUILD_MODE == 'py2exe':
     import py2exe
-
     setup(
         console=[{'script':'web2py.py',
                   'icon_resources': [(0, 'extras/icons/web2py.ico')]
                   }],
         windows=[{'script':'web2py.py',
                   'icon_resources': [(1, 'extras/icons/web2py.ico')],
-                  'dest_base':'web2py_no_console'  # MUST NOT be just 'web2py' otherwise it overrides the standard web2py.exe
+                  'dest_base':'web2py_no_console'   # MUST NOT be just 'web2py'
+                                                    # otherwise it overrides the standard web2py.exe
                   }],
         name="web2py",
         version=web2py_version,
@@ -96,14 +97,14 @@ if BUILD_MODE == 'py2exe':
         data_files=[
             'ABOUT',
             'LICENSE',
-            'VERSION'
+            'VERSION',
         ],
         options={'py2exe': {
                  'packages': contributed_modules,
                  'includes': base_modules,
                  }},
     )
-    #py2exe packages lots of duplicates in the library.zip, let's save some space
+    # py2exe packages lots of duplicates in the library.zip, let's save some space
     library_temp_dir = os.path.join('dist', 'library_temp')
     library_zip_archive = os.path.join('dist', 'library.zip')
     os.makedirs(library_temp_dir)
@@ -120,11 +121,11 @@ elif BUILD_MODE == 'bbfreeze':
     from bbfreeze import Freezer
     f = Freezer(distdir="dist", includes=(modules))
     f.addScript("web2py.py")
-    #to make executable without GUI we need this trick
+    # to make executable without GUI we need this trick
     shutil.copy("web2py.py", "web2py_no_console.py")
     f.addScript("web2py_no_console.py", gui_only=True)
     if include_gevent:
-        #fetch the gevented webserver script and copy to root
+        # fetch the gevented webserver script and copy to root
         gevented_webserver = os.path.join("handlers", "web2py_on_gevent.py")
         shutil.copy(gevented_webserver, "web2py_on_gevent.py")
         f.addScript("web2py_on_gevent.py")
@@ -133,37 +134,46 @@ elif BUILD_MODE == 'bbfreeze':
     os.unlink("web2py_no_console.py")
     if include_gevent:
         os.unlink("web2py_on_gevent.py")
-    #add data_files
+    # add data_files
     for req in ['ABOUT', 'LICENSE', 'VERSION']:
         shutil.copy(req, os.path.join('dist', req))
     print("web2py binary successfully built")
 
 elif BUILD_MODE == 'pyinstaller':
     import subprocess
-    #subprocess.run('pyinstaller web2py.py --clean --icon=extras/icons/web2py.ico -p=gluon --hidden-import=base_modules --hidden-import=contributed_modules')
     subprocess.run('pyinstaller --clean  --icon=extras/icons/web2py.ico --hidden-import=gluon.packages.dal.pydal  \
                     --hidden-import=gluon.packages.yatl.yatl --hidden-import=site-packages web2py.py')
-    #subprocess.run('pyinstaller --debug=imports --icon=extras/icons/web2py.ico web2py.py')    
 
-    #move files to dist folder
+    # to make executable without GUI we need this trick
+    shutil.copy("web2py.py", "web2py_no_console.py")
+
+    subprocess.run('pyinstaller -w --clean  --icon=extras/icons/web2py.ico --hidden-import=gluon.packages.dal.pydal  \
+                        --hidden-import=gluon.packages.yatl.yatl --hidden-import=site-packages web2py_no_console.py')
+    os.unlink("web2py_no_console.py")
+
+    # move files to dist folder
     source = 'dist/web2py/'
-    for files in os.listdir(source):    
+    for files in os.listdir(source):
         shutil.move(os.path.join(source, files), 'dist')
+    source2 = 'dist/web2py_no_console/'
+    files = 'web2py_no_console.exe'
+    shutil.move(os.path.join(source2, files), 'dist')
     shutil.rmtree(source)
-    #add data_files
+    shutil.rmtree(source2)
+    
+    # add data_files
     for req in ['CHANGELOG', 'LICENSE', 'VERSION']:
         shutil.copy(req, os.path.join('dist', req))
-    #cleanup unuseful binary cache
+    # cleanup unuseful binary cache
     for dirpath, dirnames, files in os.walk('.'):
         cache_dir = '\\__pycache__'
         extension = dirpath[-12:]
         if extension == cache_dir:
             print('Deleting cached binary directory : %s' % dirpath)
             shutil.rmtree(dirpath)
-    #misc
+    # misc
     shutil.copytree('gluon/', 'dist/gluon')
     os.mkdir('dist/logs')
-    
     print("web2py binary successfully built")
 
 try:
@@ -171,7 +181,7 @@ try:
 except:
     pass
 
-#This need to happen after bbfreeze is run because Freezer() deletes distdir before starting!
+# This need to happen after bbfreeze is run because Freezer() deletes distdir before starting!
 if python_version > (2,5):
     # Python26 compatibility: http://www.py2exe.org/index.cgi/Tutorial#Step52
     try:
@@ -179,20 +189,22 @@ if python_version > (2,5):
     except:
         print("You MUST copy Microsoft.VC90.CRT folder into the archive")
 
+
 def copy_folders(source, destination):
     """Copy files & folders from source to destination (within dist/)"""
     if os.path.exists(os.path.join('dist', destination)):
         shutil.rmtree(os.path.join('dist', destination))
     shutil.copytree(os.path.join(source), os.path.join('dist', destination))
 
-#should we remove Windows OS dlls user is unlikely to be able to distribute
+
+# should we remove Windows OS dlls user is unlikely to be able to distribute
 if remove_msft_dlls:
     print("Deleted Microsoft files not licensed for open source distribution")
     print("You are still responsible for making sure you have the rights to distribute any other included files!")
-    #delete the API-MS-Win-Core DLLs
+    # delete the API-MS-Win-Core DLLs
     for f in glob('dist/API-MS-Win-*.dll'):
         os.unlink(f)
-    #then delete some other files belonging to Microsoft
+    # then delete some other files belonging to Microsoft
     other_ms_files = ['KERNELBASE.dll', 'MPR.dll', 'MSWSOCK.dll',
                       'POWRPROF.dll']
     for f in other_ms_files:
@@ -201,12 +213,12 @@ if remove_msft_dlls:
         except:
             print("unable to delete dist/" + f)
 
-#Should we include applications?
+# Should we include applications?
 if copy_apps:
     copy_folders('applications', 'applications')
     print("Your application(s) have been added")
 else:
-    #only copy web2py's default applications
+    # only copy web2py's default applications
     copy_folders('applications/admin', 'applications/admin')
     copy_folders('applications/welcome', 'applications/welcome')
     copy_folders('applications/examples', 'applications/examples')
@@ -216,27 +228,25 @@ copy_folders('extras', 'extras')
 copy_folders('examples', 'examples')
 copy_folders('handlers', 'handlers')
 
-#should we copy project's site-packages into dist/site-packages
+# should we copy project's site-packages into dist/site-packages
 if copy_site_packages:
-    #copy site-packages
     copy_folders('site-packages', 'site-packages')
 else:
-    #no worries, web2py will create the (empty) folder first run
+    # no worries, web2py will create the (empty) folder first run
     print("Skipping site-packages")
 
-#should we copy project's scripts into dist/scripts
+# should we copy project's scripts into dist/scripts
 if copy_scripts:
-    #copy scripts
     copy_folders('scripts', 'scripts')
 else:
-    #no worries, web2py will create the (empty) folder first run
+    # no worries, web2py will create the (empty) folder first run
     print("Skipping scripts")
 
-#should we create a zip file of the build?
+# should we create a zip file of the build?
 if make_zip:
-    #create a web2py folder & copy dist's files into it
+    # create a web2py folder & copy dist's files into it
     shutil.copytree('dist', 'zip_temp/web2py')
-    #create zip file
+    # create zip file
     zipf = zipfile.ZipFile(zip_filename + ".zip",
                             "w", compression=zipfile.ZIP_DEFLATED)
     # just temp so the web2py directory is included in our zip file
@@ -249,7 +259,7 @@ if make_zip:
         zip_filename + ".zip")
     print("You may extract the archive anywhere and then run web2py/web2py.exe")
 
-#should py2exe build files be removed?
+# should py2exe build files be removed?
 if remove_build_files:
     if not BUILD_MODE == 'bbfreeze':
         shutil.rmtree('build')
@@ -258,9 +268,9 @@ if remove_build_files:
     shutil.rmtree('dist')
     print("build files removed")
 
-#final info
+# final info
 if not make_zip and not remove_build_files:
     print("Your Windows binary & associated files can also be found in /dist")
 
 print("Finished!")
-print("Enjoy web2py " + web2py_version_line)
+print("Enjoy binary web2py " + web2py_version_line)
