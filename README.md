@@ -25,7 +25,7 @@ Hence I've started to look for alternatives, and after some work I've succeeded 
 8. additional (but not required) packages to work better in the Windows world:  
 pip install psycopg2 = psycopg2-2.7.7-cp37-cp37m-win_amd64.whl  
 pip install pyodbc = pyodbc-4.0.26-cp37-cp37m-win_amd64.whl  
-pip install ldap3 = ldap3-2.5.2-py2.py3-none-any.whl + pyasn1-0.4.5-py2.py3-none-any.whl  
+download the file python_ldap-3.1.0-cp37-cp37m-win_amd64.whl from https://www.lfd.uci.edu/~gohlke/pythonlibs/ and install it from that folder with the command 'pip install python_ldap-3.1.0-cp37-cp37m-win_amd64.whl'  
 
 9. copy the modified setup_exe.py from this repository to C:\web2py\setup_exe.py. Also copy C:\web2py\extras\build_web2py\setup_exe.conf to C:\web2py\setup_exe.conf
 10. open a CMD and go to C:\web2py. Run:
@@ -38,7 +38,5 @@ If you try to run it in a 32 bit Windows system, you'll correctly get a 'web2py.
 ## Gothca:
 - at least on Windows 7, you can get an error stating that "api-ms-win-crt-runtime-l1-1-0.dll is missing". You can easily resolve it by installing "Visual C++ Redistributable for Visual Studio" described in point 7
 - for Windows 7, in the console sometimes I've got many non-stopping errors like 'ERROR:Rocket.Errors.Thread-2:Tried to send "500 Server Error" to client but received socket error'. They disappeared as soon as I've rebooted after the installation of the "Visual C++ Redistributable for Visual Studio"
-- psycopg2 is placed in a folder by itself, instead than in the root folder
-- in the currently officially binary build (with pyhton 2.7) there are also two binaries: web2py_no_console.exe and web2py_on_gevent.exe. They don't run correctly, and don't seem to be so important for me so I've decided to skip their generation
-- I've tried to install python-ldap instead than ldap3, but I was not able. With "pip install python-ldap" it keeps writing  errors like "error: Microsoft Visual C++ 14.0 is required." but I cannot resolve it whatever I install from Microsoft.
+- psycopg2 is placed in a folder by itself, instead than in the root folder (not a big issue ...)
 - Macintosh compatibility is needed, I'm trying to do it in a VM but please help if you can.
