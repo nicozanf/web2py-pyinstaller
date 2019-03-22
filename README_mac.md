@@ -20,19 +20,12 @@ pip3 install python-ldap
 5. grab latest web2py source from https://mdipierro.pythonanywhere.com/examples/static/web2py_src.zip (you need at least 2.18.3 for needed changes in gluon\admin.py). Open it to uncompress, in this example on Desktop/web2py
 
 
-6. open terminal, go to Desktop/web2py and run (all in one line):
+6. take the file build_web2py.py from this repository and place it on the Desktop/web2py  folder
 
-pyinstaller --clean  --windowed --icon=extras/icons/web2py.icns --hidden-import=gluon.packages.dal.pydal  --hidden-import=gluon.packages.yatl.yatl --hidden-import=site-packages --add-binary='/System/Library/Frameworks/Tk.framework/Tk':'tk' --add-binary='/System/Library/Frameworks/Tcl.framework/Tcl':'tcl'  web2py.py
+7. open a terminal, goto Desktop/web2py and run:  
 
-7. 
-rm dist/web2py
-rm __pycache__
-rm build
-mv dist web2py
+python3 build_web2py.py
 
-8.
-copy VERSION, application, extras, gluon, to  Desktop\web2py\web2py.app\Contents\MacOS
-
-9. compress Desktop\web2py and rename the ZIP to web2py_macos.zip
+9. if everything is fine, you'll obtain web2py_macos.zip on the Desktop/web2py  folder. Inside it, there is the web2py App.
 
 Enjoy!
