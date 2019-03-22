@@ -15,16 +15,17 @@ pip install psycopg2 = psycopg2-2.7.7-cp37-cp37m-win_amd64.whl
 pip install pyodbc = pyodbc-4.0.26-cp37-cp37m-win_amd64.whl  
 download the file python_ldap-3.1.0-cp37-cp37m-win_amd64.whl from https://www.lfd.uci.edu/~gohlke/pythonlibs/ and install it from that folder with the command 'pip install python_ldap-3.1.0-cp37-cp37m-win_amd64.whl'  
 
-9. copy the modified setup_exe.py from this repository to C:\web2py\setup_exe.py. Also copy C:\web2py\extras\build_web2py\setup_exe.conf to C:\web2py\setup_exe.conf
+9. copy build_web2py.py from this repository to C:\web2py\
 10. open a CMD and go to C:\web2py. Run:
 
-    python setup_exe.py pyinstaller
+    python build_web2py.py
 
 If everything goes fine, you'll obtain the 64 bit binary build zipped as C:\web2py\web2py_win.zip.
 If you try to run it in a 32 bit Windows system, you'll correctly get a 'web2py.exe not a valid Win32 application' error message.
 
 ## Gothca:
 - at least on Windows 7, you can get an error stating that "api-ms-win-crt-runtime-l1-1-0.dll is missing". You can easily resolve it by installing "Visual C++ Redistributable for Visual Studio" described in point 7
-- for Windows 7, in the console sometimes I've got many non-stopping errors like 'ERROR:Rocket.Errors.Thread-2:Tried to send "500 Server Error" to client but received socket error'. They disappeared as soon as I've rebooted after the installation of the "Visual C++ Redistributable for Visual Studio"
+- for Windows 7, in the console sometimes I've got many non-stopping errors like 'ERROR:Rocket.Errors.Thread-2:Tried to send "500 Server Error" to client but received socket error'. This happens also if you run it from source.
 - psycopg2 is placed in a folder by itself, instead than in the root folder (not a big issue ...)
+- unfortunately, new versions cannot be simply deployed by sobstituting the source files inside the older ZIP file, as it was done in the past
 
