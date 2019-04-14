@@ -11,6 +11,6 @@ Hence I've started to look for alternatives, and after some work I've succeeded 
 
 For instructions, see the specific README for Windows (https://github.com/nicozanf/web2py-pyinstaller/blob/master/README_win.md) and for Mac (https://github.com/nicozanf/web2py-pyinstaller/blob/master/README_mac.md)
 
-The experimental binary are also here, as web2py_win.version.zip and web2py_osx.version.zip
+The experimental binary build by me are also here, in the same repository.
 
 
