@@ -1,10 +1,16 @@
+## Windows binaries
+
+The windows binaries on https://github.com/nicozanf/web2py-pyinstaller contain Python 3.7.3 64 bit with all the needed modules and the web2py in the specified version. You don't need anything else to run them on Windows.
+At least on Windows 7, if you get an error stating that "api-ms-win-crt-runtime-l1-1-0.dll is missing" you have only to install the free and official "Visual C++ Redistributable for Visual Studio" as described in point 7
+
+
 ## Full Windows build recipe
 
 1. get a clean Windows 10 (Windows 10 Professional English build 1809 64 bit, under Virtualbox in my case)
-2. grab and install the official Python program: I've got version 3.7.2, 64 bit  (https://www.python.org/ftp/python/3.7.2/python-3.7.2-amd64.exe ) + select  "add Python 3.7 to PATH" during its setup
+2. grab and install the official Python program: I've got version 3.7.3, 64 bit  (https://www.python.org/ftp/python/3.7.2/python-3.7.2-amd64.exe ) + select  "add Python 3.7 to PATH" during its setup
 3. update tools with  
 "python -m pip install --upgrade pip"  --> pip-19.0.3  
-"pip install --upgrade setuptools" --> setuptools-40.8.0-py2.py3-none-any.whl
+"pip install --upgrade setuptools" --> setuptools-41.0
 4. download and install python-win32, which is needed for web2py to work with all features enabled (https://github.com/mhammond/pywin32/releases/download/b224/pywin32-224.win-amd64-py3.7.exe)
 5. grab latest web2py source from https://mdipierro.pythonanywhere.com/examples/static/web2py_src.zip (you need at least 2.18.3 for needed changes in gluon\admin.py). Unzip it in a dedicated folder, in this example C:\web2py - so that you have C:\web2py\web2py.py inside)
 6. install PyInstaller with:  
@@ -15,7 +21,7 @@ pip install psycopg2 = psycopg2-2.7.7-cp37-cp37m-win_amd64.whl
 pip install pyodbc = pyodbc-4.0.26-cp37-cp37m-win_amd64.whl  
 download the file python_ldap-3.1.0-cp37-cp37m-win_amd64.whl from https://www.lfd.uci.edu/~gohlke/pythonlibs/ and install it from that folder with the command 'pip install python_ldap-3.1.0-cp37-cp37m-win_amd64.whl'  
 
-9. copy build_web2py.py from this repository to C:\web2py\
+9. copy build_web2py.py, web2py.win.spec and web2py.win_no_console.spec from this repository to C:\web2py\
 10. open a CMD and go to C:\web2py. Run:
 
     python build_web2py.py
@@ -25,7 +31,14 @@ If you try to run it in a 32 bit Windows system, you'll correctly get a 'web2py.
 
 ## Gothca:
 - at least on Windows 7, you can get an error stating that "api-ms-win-crt-runtime-l1-1-0.dll is missing". You can easily resolve it by installing "Visual C++ Redistributable for Visual Studio" described in point 7
-- for Windows 7, in the console sometimes I've got many non-stopping errors like 'ERROR:Rocket.Errors.Thread-2:Tried to send "500 Server Error" to client but received socket error'. This happens also if you run it from source.
+- for Windows 7, in the console sometimes I've got many non-stopping errors like 'ERROR:Rocket.Errors.Thread-2:Tried to send "500 Server Error" to client but received socket error'. This is a known warning that happens also if you run it from source.
 - psycopg2 is placed in a folder by itself, instead than in the root folder (not a big issue ...)
-- unfortunately, new versions cannot be simply deployed by sobstituting the source files inside the older ZIP file, as it was done in the past
+
+## Debugging
+The 'normal' binaries have only the external python modules included (i.e. no gluon*). In this way, new versions of web2py can be simply deployed by substituting the web2py source files inside the ZIP file. But sometimes this could be broken due to new requirements. In this case you need to make a 'fat' binary version by changing to True the BUILD_DEBUG variable in build_web2py.py. Then you can examine the new executable (for new modules to be specified in web2py.win.spec) with the command:  
+
+pyi-archive_viewer web2py.exe  
+
+see https://pyinstaller.readthedocs.io/en/latest/advanced-topics.html#using-pyi-archive-viewer for details
+
 
