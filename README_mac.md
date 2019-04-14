@@ -1,11 +1,11 @@
 Tested with MacOS Sierra 10.12.6 + security update 2019.001
 -----------------------------------------------------------
 
-1. grab and install the official Python program: I've got version 3.7.2,(python-3.7.2-macosx10.9.pkg ) 
+1. grab and install the official Python program: I've got version 3.7.3
 
 2. Open a terminal, update tools with:
 "python3 -m pip install --upgrade pip" --> pip-19.0.3
-"pip3 install --upgrade setuptools" --> setuptools-40.8.0-py2.py3-none-any.whl
+"pip3 install --upgrade setuptools" --> setuptools-41.0.0
 
 
 3. install PyInstaller with: 
@@ -20,12 +20,16 @@ pip3 install python-ldap
 5. grab latest web2py source from https://mdipierro.pythonanywhere.com/examples/static/web2py_src.zip (you need at least 2.18.3 for needed changes in gluon\admin.py). Open it to uncompress, in this example on Desktop/web2py
 
 
-6. take the file build_web2py.py from this repository and place it on the Desktop/web2py  folder
+6. take the file build_web2py.py and web2py.mac.spec  from this repository and place it on the Desktop/web2py  folder  
 
-7. open a terminal, goto Desktop/web2py and run:  
+7. edit the file /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/PyInstaller/hooks/hook-_tkinter.py and change one of its line according to https://github.com/pyinstaller/pyinstaller/pull/3830  
+
+8. open a terminal, goto Desktop/web2py and run:  
 
 python3 build_web2py.py
 
-9. if everything is fine, you'll obtain web2py_macos.zip on the Desktop/web2py  folder. Inside it, there is the web2py App.
+9. if everything is fine, you'll obtain web2py_macos.zip on the Desktop/web2py  folder. Inside it, there is the web2py program with both the CMD version and the APP version.
+
+Unfortunately, the APP version is still not working - see https://github.com/pyinstaller/pyinstaller/issues/3820
 
 Enjoy!
