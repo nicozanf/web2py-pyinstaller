@@ -1,5 +1,8 @@
-Tested with MacOS Sierra 10.12.6 + security update 2019.001
------------------------------------------------------------
+## MacOS binaries
+
+The MacOS binaries on https://github.com/nicozanf/web2py-pyinstaller contain Python 3.7.3 64 bit with all the needed modules and the web2py in the specified version. You don't need anything else to run them on MacOS. After uncompressing the zip file, you just need to click on the web2py icon inside. They were produced by me with MacOS Sierra 10.12.6 + security update 2019.001
+
+## Full MacOS build recipe
 
 1. grab and install the official Python program: I've got version 3.7.3
 
@@ -30,6 +33,15 @@ python3 build_web2py.py
 
 9. if everything is fine, you'll obtain web2py_macos.zip on the Desktop/web2py  folder. Inside it, there is the web2py program with both the CMD version and the APP version.
 
-Unfortunately, the APP version is still not working - see https://github.com/pyinstaller/pyinstaller/issues/3820
+## Gothca
 
-Enjoy!
+Unfortunately, the APP version is still not working - see https://github.com/pyinstaller/pyinstaller/issues/3820 . I'm not adding it to the repository
+
+## Debugging
+The 'normal' binaries have only the external python modules included (i.e. no gluon*). In this way, new versions of web2py can be simply deployed by substituting the web2py source files inside the ZIP file. But sometimes this could be broken due to new requirements. In this case you need to make a 'fat' binary version by changing to True the BUILD_DEBUG variable in build_web2py.py. Then you can examine the new executable (for new modules to be specified in web2py.mac.spec) with the command:  
+
+pyi-archive_viewer web2py.exe  
+
+see https://pyinstaller.readthedocs.io/en/latest/advanced-topics.html#using-pyi-archive-viewer for details
+
+
