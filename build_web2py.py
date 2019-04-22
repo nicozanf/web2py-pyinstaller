@@ -77,13 +77,13 @@ python_version = sys.version_info[:3]
 if os_version == 'Windows':
     print("\nBuilding binary web2py for Windows\n")
     if BUILD_DEBUG: # debug only
-        subprocess.run('pyinstaller --clean  --icon=extras/icons/web2py.ico \
+        subprocess.call('pyinstaller --clean  --icon=extras/icons/web2py.ico \
                         --hidden-import=site-packages --hidden-import=gluon.packages.dal.pydal \
                         --hidden-import=gluon.packages.yatl.yatl web2py.py')
         zip_filename = 'web2py_win_debug'
     else: # normal run    
-        subprocess.run('pyinstaller --clean  web2py.win.spec')
-        subprocess.run('pyinstaller --clean  web2py.win_no_console.spec')
+        subprocess.call('pyinstaller --clean  web2py.win.spec')
+        subprocess.call('pyinstaller --clean  web2py.win_no_console.spec')
         source_no_console = 'dist/web2py_no_console/'
         files = 'web2py_no_console.exe'
         shutil.move(os.path.join(source_no_console, files), 'dist')
