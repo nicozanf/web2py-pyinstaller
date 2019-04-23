@@ -1,10 +1,12 @@
 ## MacOS binaries
 
-The MacOS binaries on https://github.com/nicozanf/web2py-pyinstaller contain Python 3.7.3 64 bit with all the needed modules and the web2py in the specified version. You don't need anything else to run them on MacOS. After uncompressing the zip file, you just need to click on the web2py icon inside. They were produced by me with MacOS Sierra 10.12.6 + security update 2019.001
+The MacOS binaries on https://github.com/nicozanf/web2py-pyinstaller contain Python 3.7.3 (or 2.7.16) 64 bit with all the needed modules and the web2py in the specified version: you don't need anything else to run them on MacOS! After uncompressing the zip file, you just need to click on the web2py icon inside.  
+
+They were produced by me on MacOS Sierra 10.12.6 + security update 2019.001.
 
 ## Full MacOS build recipe
 
-1. grab and install the official Python program: I've got version 3.7.3
+1. grab and install the official Python program: I've got version 3.7.3 or 2.7.16 (64 bit). If you've chosen python 2, change pip3 with pip, and python3 with python in the following instructions...
 
 2. Open a terminal, update tools with:
 "python3 -m pip install --upgrade pip" --> pip-19.0.3
@@ -14,7 +16,8 @@ The MacOS binaries on https://github.com/nicozanf/web2py-pyinstaller contain Pyt
 3. install PyInstaller with: 
 sudo -H pip3 install pyinstaller (I've got PyInstaller-3.4 )
 
-4. additional (but not required) packages: 
+4. additional (but not required) packages:  
+(only for python 2: install Homebrew from https://brew.sh/#install , then 'brew install unixodbc' )
 pip3 install psycopg2-binary = psycopg2-2.7.7
 pip3 install pyodbc = pyodbc-4.0.26-cp37-cp37m
 pip3 install python-ldap (on the windows message, accept to install the "Command line developer tools"). Rerun:
