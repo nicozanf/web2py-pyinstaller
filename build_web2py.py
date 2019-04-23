@@ -130,7 +130,12 @@ for dirpath, dirnames, files in os.walk('.'):
     if dirpath.endswith('__pycache__'):
         print('Deleting cached binary directory : %s' % dirpath)
         shutil.rmtree(dirpath)
-
+for dirpath, dirnames, files in os.walk('.'):
+    for file in files:
+        if file.endswith('.pyc'):
+            print('Deleting cached binary file : %s' % file)
+            os.unlink(os.path.join(dirpath, file))
+        
 print("\nPreparing package ...")
 # misc
 for folders in ['gluon', 'extras', 'site-packages', 'scripts', 'applications', 'examples', 'handlers']:
