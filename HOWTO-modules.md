@@ -8,7 +8,7 @@ It also has higher priority and can even be accessed by other apps as web2py/app
 
 If you run web2py **from the compiled binary**, any system-wide folder will be ignored - only what's down the web2py folder will be normally available. You can check it by yourself with the interactive shell (running `web2py -M -S myapp` inside the web2py's folder) and [the simple helloworld.py module.](https://stackoverflow.com/questions/15746675/how-to-write-a-python-module-package)
  
-Modules will be searched with this order: 
+Modules will be searched in this order: 
 
 1. web2py/application/myapp/modules (inside myapp)
 1. web2py/site-packages (globally for all the apps) 
@@ -18,6 +18,8 @@ Modules will be searched with this order:
 1. web2py/base_library.zip (contains base libraries from python)
 
 Also, you have modules inside the web2py binary made by PyInstaller. You can look inside this compressed file with the pyi-archive_viewer utility of PyInstaller.
+
+## Differences and Troubleshooting
 
 What's different and problematic in the 'running from binary' mode is that you cannot use pip (or similar) for installing modules inside. 
 You instead have to pip-install them on a full system (that has python of the same version of the binary one) and manually copy 
