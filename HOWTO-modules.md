@@ -19,5 +19,5 @@ You instead have to pip-install them on a full system (that has python of the sa
 the related files inside the binary folders. For complex module like pandas, you also have to copy all the files for the 
 related pre-requisites - and possibly test them one by one.  
 Unfortunately, this could fail - expecially if the modules have binary files. 
-In this case, the last resort is to try to compile the binary version by yourself - following the instructions on my repository 
+In this case, the last resort is to try to compile the binary version by yourself  from a working web2py source - following the instructions on my repository 
 and specifying your additional needed modules. Maybe PyInstaller will play the module dependency game better than you ;-)
