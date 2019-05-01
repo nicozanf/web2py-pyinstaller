@@ -21,9 +21,14 @@ Also, you have modules inside the web2py binary made by PyInstaller. You can loo
 
 ## Differences and Troubleshooting
 
-What's different and problematic in the 'running from binary' mode is that you cannot use pip (or similar) for installing modules inside. 
-You instead have to pip-install them on a full system (that has python of the same version of the binary one) and manually copy 
-the related files inside the binary folders. For complex module like pandas, you also have to copy all the files for the 
-related pre-requisites - and possibly test them one by one.  
+What's different and problematic in the 'running from binary' mode is that it's not so easy to install modules inside them. You have the following options:
+
+- **manual copy**: you can pip-install them on a full system (that has python of the same version of the binary one) and manually copy 
+the related files inside the binary folders. For complex module, you also have to copy all the files for the 
+related pre-requisites - and possibly test them one by one. 
+- **pip install**: on a full system (that has python of the same version of the binary one) you can open a shell and go to the web2py folder. Here, you can issue the command `pip install -t site-packages <package_name>` or even `pip install -t applications/myapp/modules <package_name>`. This works fine for simple modules like numpy ;-) - thank 
+rāma <ranjeev.hs@gmail.com> for this suggestion!
+
+
 Unfortunately, this could fail; expecially if the modules contains binary files. 
 In this case, the last resort is to try to compile the binary version by yourself  from a working web2py source - following the instructions on my repository and specifying your additional needed modules. Maybe PyInstaller will play the module dependency game better than you ;-)
