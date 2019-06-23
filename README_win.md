@@ -23,7 +23,8 @@ download the file python_ldap-3.1.0-cp37-cp37m-win_amd64.whl from https://www.lf
 
 9. copy build_web2py.py, web2py.win.spec and web2py.win_no_console.spec from this repository to C:\web2py\  
 10. (only for python 2) - due to a PyInstaller bug, you need to manually change the file gluon\rocket.py, line 26, from IS_JYTHON = platform.system() == 'Java'  to  IS_JYTHON = False
-11. open a CMD and go to C:\web2py. Run:
+11. (optional, for having a full working interactive shell) change the fake site.py module included within the PyInstaller installation with the content of the files web2py.site_37.py or web2py.site_27.py from this repository - see comments inside these files for details 
+12. open a CMD and go to C:\web2py. Run:
 
     python build_web2py.py
 
