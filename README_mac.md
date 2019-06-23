@@ -30,11 +30,13 @@ pip3 install python-ldap
 
 7. edit the file /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/PyInstaller/hooks/hook-_tkinter.py and change one of its line according to https://github.com/pyinstaller/pyinstaller/pull/3830  
 
-8. open a terminal, goto Desktop/web2py and run:  
+8. (optional, for having a full working interactive shell) change the fake site.py module included within the PyInstaller installation with the content of the files web2py.site_37.py or web2py.site_27.py from this repository - see comments inside these files for details
+
+9. open a terminal, goto Desktop/web2py and run:  
 
 python3 build_web2py.py
 
-9. if everything is fine, you'll obtain web2py_macos.zip on the Desktop/web2py  folder. Inside it, there is the web2py program with both the CMD version and the APP version.
+10. if everything is fine, you'll obtain web2py_macos.zip on the Desktop/web2py  folder. Inside it, there is the web2py program with both the CMD version and the APP version.
 
 ## Gothca
 
