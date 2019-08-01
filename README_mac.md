@@ -1,6 +1,6 @@
 ## MacOS binaries
 
-The MacOS binaries on https://github.com/nicozanf/web2py-pyinstaller contain Python 3.7.3 (or 2.7.16) 64 bit with all the needed modules and the web2py in the specified version: you don't need anything else to run them on MacOS! After uncompressing the zip file, you just need to click on the web2py icon inside.  
+The MacOS binaries on https://github.com/nicozanf/web2py-pyinstaller contain Python 3.7.4 (or 2.7.16) 64 bit with all the needed modules and the web2py in the specified version: you don't need anything else to run them on MacOS! After uncompressing the zip file, you just need to click on the web2py icon inside.  
 
 They were produced by me on MacOS Sierra 10.12.6 + security update 2019.001.
 
