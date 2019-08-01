@@ -1,20 +1,20 @@
 ## Windows binaries
 
-The windows binaries on https://github.com/nicozanf/web2py-pyinstaller contain Python 64 bit version 3.7.3 or 2.7.16 with all the needed modules and the web2py in the specified version. You don't need anything else to run them on Windows.
+The windows binaries on https://github.com/nicozanf/web2py-pyinstaller contain Python 64 bit version 3.7.4 or 2.7.16 with all the needed modules and the web2py in the specified version. You don't need anything else to run them on Windows.
 At least on Windows 7, if you get an error stating that "api-ms-win-crt-runtime-l1-1-0.dll is missing" you have only to install the free and official "Visual C++ Redistributable for Visual Studio" as described in point 7
 
 
 ## Full Windows build recipe
 
 1. get a clean Windows 10 (Windows 10 Professional English build 1809 64 bit, under Virtualbox in my case)
-2. grab and install the official Python program: I've got version 3.7.3 or 2.7.16, 64 bit  (https://www.python.org/ftp/python/3.7.2/python-3.7.2-amd64.exe ) + select  "add Python 3.7 to PATH" during its setup if Python 3. For Python 2 you need to manually add the folders for python27 and python27\Scripts to the system path.
+2. grab and install the official Python program: I've got version 3.7.4 or 2.7.16, 64 bit  (https://www.python.org/ftp/python/3.7.2/python-3.7.3-amd64.exe ) + select  "add Python 3.7 to PATH" during its setup if Python 3. For Python 2 you need to manually add the folders for python27 and python27\Scripts to the system path.
 3. update tools with  
-"python -m pip install --upgrade pip"  --> pip-19.0.3  
-"pip install --upgrade setuptools" --> setuptools-41.0
+"python -m pip install --upgrade pip"  --> pip-19.2.1  
+"pip install --upgrade setuptools" --> setuptools-41.0.1
 4. download and install python-win32, which is needed for web2py to work with all features enabled (https://github.com/mhammond/pywin32/releases/download/b224/pywin32-224.win-amd64-py3.7.exe)
 5. grab latest web2py source from https://mdipierro.pythonanywhere.com/examples/static/web2py_src.zip (you need at least 2.18.3 for needed changes in gluon\admin.py). Unzip it in a dedicated folder, in this example C:\web2py - so that you have C:\web2py\web2py.py inside)
 6. install PyInstaller with:  
-        pip install pyinstaller  (I've got PyInstaller-3.4.tar.gz )  
+        pip install  --upgrade pyinstaller  (I've got PyInstaller-3.5.tar.gz )  
 7. download and install the free Microsoft Visual C++ Redistributable per Visual Studio 2017, 64 bit version, from https://aka.ms/vs/15/release/vc_redist.x64.exe  
 8. additional (but not required) packages to work better in the Windows world:  
 pip install psycopg2 = psycopg2-2.7.7-cp37-cp37m-win_amd64.whl  
@@ -34,7 +34,6 @@ If you try to run it in a 32 bit Windows system, you'll correctly get a 'web2py.
 ## Gothca:
 - at least on Windows 7, you can get an error stating that "api-ms-win-crt-runtime-l1-1-0.dll is missing". You can easily resolve it by installing "Visual C++ Redistributable for Visual Studio" described in point 7
 - for the Python 3 version on Windows, in the console sometimes I've got many non-stopping errors like 'ERROR:Rocket.Errors.Thread-2:Tried to send "500 Server Error" to client but received socket error'. This is a known warning that happens also if you run it from source.
-- psycopg2 is placed in a folder by itself, instead than in the root folder (not a big issue ...)
 
 ## Debugging
 The 'normal' binaries have only the external python modules included (i.e. no gluon*). In this way, new versions of web2py can be simply deployed by substituting the web2py source files inside the ZIP file - but take care with python 2 of modifying rocket.py as described on point 10.  
