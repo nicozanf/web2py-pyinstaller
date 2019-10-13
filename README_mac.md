@@ -6,7 +6,7 @@ They were produced by me on MacOS Sierra 10.12.6 + security update 2019.001.
 
 ## Full MacOS build recipe
 
-1. grab and install the official Python program: I've got version 3.7.4 or 2.7.16 (64 bit). If you've chosen python 2, change pip3 with pip, and python3 with python in the following instructions...
+1. grab and install the official Python program from https://www.python.org : I've got version 3.7.4 or 2.7.16 (64 bit). If you've chosen python 2, change pip3 with pip, and python3 with python in the following instructions...
 
 2. Open a terminal, update tools with:
 "python3 -m pip install --upgrade pip" --> pip-19.2.1
