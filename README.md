@@ -5,14 +5,17 @@ How to make web2py Windows & Macintosh binaries with python 2 / 3 and pyinstalle
 Please, help with testing. Write the results directly to me (nicozanf@gmail.com)   
 **********************************************************************************  
 
-## Which version for Mac?
+## Which version should you use?
 
-The recommended version for new users is [web2py_osx.2_18_5.py3_cmd.zip](https://github.com/nicozanf/web2py-pyinstaller/blob/master/web2py_osx.2_18_5.py3_cmd.zip)
+The recommended version for new users is the one with Python 3 embedded. Use Python 2 only if you need to use old existing apps.
 
-- the **CMD** versions are the Command ones (with Python 2 or 3), and they should work in any recent Mac. Just run the **web2py** program inside the compressed folder.
-- the **APP** versions are the bundled Apps (still with Python 2 or 3). They are nicer but work fine only up to MacOs 10.13 (High Sierra).
-Unfortunately, on MacOs 10.14+ Apple has changed the security settings and this has somehow broken them. If you still want to use the Apps, you can somehow do it by ctrl-open them or ctrl-Show Contents and then run Contents/MacOs/web2py. Also, I've noticed that downloading the program with Safari embed some kind of security restriction on the programs; it's better if you download them with the Terminal and wget or similar...
+## MacOS execution problems
 
+Unfortunately, on MacOs 10.12+ Apple has changed the security settings and this has somehow broken the bundles apps normal behaviour. If you face execution problems, please follow one of the following advices:
+
+- 'control' + click on downloaded file and then 'open' it (confirm the warnings). Then move the file in Applications and run it from there.
+-  download the files from another OS (Windows or Linux) and then use an USB key / drive in order to copy them to the Mac. This will not insert the security Extended Attribute onto them.
+- after dowloading the app, on a Terminal go to that folder and run 'xattr -d com.apple.quarantine  web2py.app' in order to delete the security Extended Attribute
 
 ## Module HOWTO
 Also, there is [a simple HOWTO](https://github.com/nicozanf/web2py-pyinstaller/blob/master/HOWTO-modules.md) that shows how to install additional modules directly on the binaries.   
