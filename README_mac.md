@@ -14,7 +14,7 @@ They were produced by me on MacOS Sierra 10.12.6 + security update 2019.001.
 
 
 3. install PyInstaller with: 
-sudo -H pip3 install pyinstaller (I've got PyInstaller-3.5 )
+sudo -H pip3 install --upgrade pyinstaller (I've got PyInstaller-3.6 )
 
 4. additional (but not required) packages:  
 (only for python 2: install Homebrew from https://brew.sh/#install , then 'brew install unixodbc' )
@@ -30,7 +30,8 @@ pip3 install python-ldap
 
 7. edit the file /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/PyInstaller/hooks/hook-_tkinter.py and change one of its line according to https://github.com/pyinstaller/pyinstaller/pull/3830  
 
-8. (optional, for having a full working interactive shell) change the fake site.py module included within the PyInstaller installation with the content of the files web2py.site_37.py or web2py.site_27.py from this repository - see comments inside these files for details
+8. (optional, for having a full working interactive shell) change the fake site.py module included within the PyInstaller installation with the content of the files web2py.site_37.py or web2py.site_27.py from this repository - see comments inside these files for details.
+ You will also need to add 'import site' on the top of the file Desktop/web2py/gluon/shell.py 
 
 9. open a terminal, goto Desktop/web2py and run:  
 
@@ -43,7 +44,8 @@ python3 build_web2py.py
 /Library/Frameworks/Python.framework/Versions/3.7/lib/tcl8/8.5/**msgcat-1.6.1.tm**  
 
 ## Debugging
-The 'normal' binaries have only the external python modules included (i.e. no gluon*). In this way, new versions of web2py can be simply deployed by substituting the web2py source files inside the ZIP file. But sometimes this could be broken due to new requirements. In this case you need to make a 'fat' binary version by changing to True the BUILD_DEBUG variable in build_web2py.py. Then you can examine the new executable (for new modules to be specified in web2py.mac.spec) with the command:  
+The 'normal' binaries have only the external python modules included (i.e. no gluon*). In this way, new versions of web2py can be simply deployed by substituting the web2py source files inside the ZIP file but the main program web2py.py must not be modified.
+Sometimes this could be broken due to new requirements. In this case you need to make a 'fat' binary version by changing to True the BUILD_DEBUG variable in build_web2py.py. Then you can examine the new executable (for new modules to be specified in web2py.mac.spec) with the command:  
 
 pyi-archive_viewer web2py.exe  
 
