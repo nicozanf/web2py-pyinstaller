@@ -7,7 +7,7 @@
 # Then we switched to Pyinstaller in order to fully support Python 3
 
 from distutils.core import setup
-from gluon.import_all import base_modules, contributed_modules
+#from gluon.import_all import base_modules, contributed_modules
 from gluon.fileutils import readlines_file
 from glob import glob
 import os
@@ -63,10 +63,10 @@ def recursive_zip(zipf, directory, folder=""):
                 zipf, os.path.join(directory, item), folder + os.sep + item)
 
 
-# read web2py version from VERSION file
-web2py_version_line = readlines_file('VERSION')[0]
+# read web2py version from /gluon/version.py file
+web2py_version_line = readlines_file('./gluon/version.py')[0]
 # use regular expression to get just the version number
-v_re = re.compile('[0-9]+\.[0-9]+\.[0-9]+')
+v_re = re.compile(r'[0-9]+\.[0-9]+\.[0-9]+')
 web2py_version = v_re.search(web2py_version_line).group(0)
 
 # Python base version
@@ -94,7 +94,7 @@ if os_version == 'Windows':
     for files in os.listdir(source):
         shutil.move(os.path.join(source, files), 'dist')
     shutil.rmtree(source)
-    os.unlink('dist/web2py.exe.manifest')
+    #os.unlink('dist/web2py.exe.manifest')
 
 
 
@@ -121,7 +121,7 @@ elif os_version == 'Darwin':
 
 
 # add data_files
-for req in ['CHANGELOG', 'LICENSE', 'VERSION']:
+for req in ['CHANGELOG.md', 'LICENSE.web2py.txt', 'README.md']:
     for bin_folder in bin_folders:
         shutil.copy(req, os.path.join(bin_folder, req))
 # cleanup unuseful binary cache

@@ -1,21 +1,18 @@
 # web2py-pyinstaller 
 How to make web2py Windows & Macintosh binaries with python 2 / 3 and pyinstaller 
 
-**********************************************************************************
-Please, help with testing. Write the results directly to me (nicozanf@gmail.com)   
-**********************************************************************************  
+*********************************************
+Please, help with testing and report any bug
+*********************************************
 
 ## Which version should you use?
 
-The recommended version for new users is the one with Python 3 embedded. Use Python 2 only if you need to use old existing apps.
+The recommended versions for new users are:
 
-## MacOS execution problems
+- web2py_win_2191_py374.zip for Windows  (web2py 2.19.1 and python 3.7.4)
+- web2py_osx_2191_py374.zip for MacOs (web2py 2.19.1 and python 3.7.4)
 
-Unfortunately, on MacOs 10.12+ Apple has changed the security settings and this has somehow broken the bundles apps normal behaviour. If you face execution problems, please follow one of the following advices:
-
-- 'control' + click on downloaded file and then 'open' it (confirm the warnings). Then move the file in Applications and run it from there.
--  download the files from another OS (Windows or Linux) and then use an USB key / drive in order to copy them to the Mac. This will not insert the security Extended Attribute onto them.
-- after dowloading the app, on a Terminal go to that folder and run 'xattr -d com.apple.quarantine  web2py.app' in order to delete the security Extended Attribute
+Use Python 2 only if you need to use old existing apps, while web2py version 3.x is experimental and unstable.
 
 ## Module HOWTO
 Also, there is [a simple HOWTO](https://github.com/nicozanf/web2py-pyinstaller/blob/master/HOWTO-modules.md) that shows how to install additional modules directly on the binaries.   
